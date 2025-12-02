@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Profile Card</title>
+  <style>
+    :root{
+      --card-bg: #ffffff;
+      --muted: #9aa0a6;
+      --accent: linear-gradient(90deg,#7b4dff,#5bd1ff 60%);
+      --purple: #6b39ff;
+      --shadow: 0 10px 25px rgba(15,20,25,0.12);
+    }
+    *{box-sizing:border-box}
+    body{
+      background: #e6e7e9;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+      margin:0;
+      padding:20px;
+    }
+
+    .card{
+      width:340px;
+      background:var(--card-bg);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      overflow:visible;
+      position:relative;
+      padding-bottom:22px;
+      border:8px solid rgba(255,255,255,0.8); /* thick white frame like image */
+    }
+
+    /* top banner */
+    .card .banner{
+      height:110px;
+      border-top-left-radius:16px;
+      border-top-right-radius:16px;
+      background: linear-gradient(120deg,#0fd,#f9a, #ffd36b);
+      background-size:200% 200%;
+      animation: bg 6s linear infinite;
+      position:relative;
+    }
+    @keyframes bg{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    /* avatar */
+    .avatar{
+      width:72px;
+      height:72px;
+      border-radius:50%;
+      border:6px solid var(--card-bg);
+      position:absolute;
+      top:70px; /* overlap banner */
+      left:20px;
+      overflow:hidden;
+      box-shadow:0 6px 18px rgba(0,0,0,0.12);
+      background:#eee;
+    }
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+
+    /* company badge */
+    .company-badge{
+      position:absolute;
+      top:110px;
+      left:130px;
+      transform:translateY(-6px);
+      background:linear-gradient(90deg,#6b39ff,#8b5cff);
+      color:#fff;
+      padding:10px 14px;
+      border-radius:20px;
+      font-weight:600;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      box-shadow:0 6px 18px rgba(107,57,255,0.18);
+      font-size:14px;
+    }
+    .company-badge .logo{
+      width:26px;height:26px;border-radius:6px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-weight:700;
+      box-shadow:inset 0 -2px 0 rgba(0,0,0,0.05);
+    }
+
+    .content{
+      padding:56px 22px 18px 22px; /* top padding leaves space for avatar */
+    }
+    .name{
+      margin:0;
+      font-size:20px;
+      font-weight:700;
+      color:#111827;
+    }
+    .title{
+      margin:6px 0 18px 0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    /* small circle icon to the right (bookmark) */
+    .bookmark{
+      position:absolute;
+      top:130px;
+      right:18px;
+      width:44px;height:44px;border-radius:50%;
+      background:#fff;border:1px solid #f0f0f0;display:flex;align-items:center;justify-content:center;
+      box-shadow:0 4px 10px rgba(2,6,23,0.06);
+    }
+
+    /* stats row */
+    .stats{
+      display:flex;
+      gap:12px;
+      margin-top:6px;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .stat{
+      flex:1;
+      min-width:0;
+      display:flex;
+      gap:8px;
+      align-items:center;
+      padding:12px 8px;
+      background:transparent;
+      border-radius:10px;
+    }
+    .stat .icon{
+      width:34px;height:34px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font-size:16px;
+      color:#fff;
+    }
+    .stat .value{
+      font-weight:700;
+      font-size:14px;
+      color:#111827;
+    }
+    .stat .label{
+      display:block;
+      font-size:11px;color:var(--muted);
+    }
+
+    /* specific icon backgrounds */
+    .star{background:linear-gradient(90deg,#ffd54a,#ffb347); color:#5b3b00}
+    .money{background:linear-gradient(90deg,#4fb2ff,#2f7cff)}
+    .time{background:linear-gradient(90deg,#9b6bff,#ff6bd3)}
+
+    /* big button */
+    .cta{
+      margin-top:18px;
+      display:block;
+      width:calc(100% - 44px);
+      margin-left:22px;
+      text-align:center;
+      padding:14px 18px;
+      border-radius:999px;
+      color:#fff;
+      font-weight:700;
+      text-decoration:none;
+      background: linear-gradient(180deg,#222427,#121212);
+      box-shadow: 0 8px 18px rgba(2,6,23,0.2), inset 0 -6px 18px rgba(255,255,255,0.02);
+    }
+
+    /* small responsive tweak */
+    @media (max-width:360px){
+      .card{width:92%}
+      .company-badge{left:120px}
+    }
+  </style>
+</head>
+<body>
+  <article class="card" aria-label="Profile card">
+    <div class="banner" role="img" aria-hidden="true"></div>
+
+    <div class="avatar" aria-hidden="false">
+      <!-- Ganti src dengan gambar avatar kamu atau path lokal -->
+      <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=500&auto=format&fit=crop&ixlib=rb-4.0.3&s=2f3ad6b0b0c6b8c7a4b0e7a5c3f2e8c3" alt="Foto profil Alex Turner">
+    </div>
+
+    <div class="company-badge" aria-hidden="true">
+      <div class="logo">A</div>
+      <div>Adobe Co.</div>
+    </div>
+
+    <div class="bookmark" title="Bookmark">
+      <!-- Simple bookmark icon (SVG) -->
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 2h12v20l-6-4-6 4V2z" fill="#b6bec8"/>
+      </svg>
+    </div>
+
+    <div class="content">
+      <h2 class="name">Alex Turner</h2>
+      <div class="title">Creative Director</div>
+
+      <div class="stats" role="list">
+        <div class="stat" role="listitem" aria-label="Rating 5.0">
+          <div class="icon star" aria-hidden="true">★</div>
+          <div>
+            <div class="value">5.0</div>
+            <span class="label">Rating</span>
+          </div>
+        </div>
+
+        <div class="stat" role="listitem" aria-label="Price $150">
+          <div class="icon money" aria-hidden="true">$</div>
+          <div>
+            <div class="value">$150</div>
+            <span class="label">hours</span>
+          </div>
+        </div>
+
+        <div class="stat" role="listitem" aria-label="24 Month">
+          <div class="icon time" aria-hidden="true">⏱</div>
+          <div>
+            <div class="value">24</div>
+            <span class="label">Month</span>
+          </div>
+        </div>
+      </div>
+
+      <a class="cta" href="#" role="button">Get In Touch</a>
+    </div>
+  </article>
+</body>
+</html>
