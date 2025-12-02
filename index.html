@@ -103,6 +103,15 @@
       font-size:13px;
     }
 
+    /* Verified icon next to name - size matches text */
+    .name img.verified {
+      height: 1em;        /* match text height */
+      width: auto;
+      vertical-align: text-bottom;
+      margin-left: 0.35em;
+      display: inline-block;
+    }
+
     /* small circle icon to the right (bookmark) */
     .bookmark{
       position:absolute;
@@ -195,7 +204,7 @@
     </div>
 
     <div class="content">
-      <h2 class="name">Fikri Saputra </h2>
+      <h2 class="name">Fikri Saputra <img src="Assets/Verifed/Verified.png" alt="Verified" class="verified"/></h2>
       <div class="title">Creative Designer</div>
 
       <div class="stats" role="list">
