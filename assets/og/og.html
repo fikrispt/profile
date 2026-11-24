@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <title>OG image — link preview 1200×630</title>
+  <!--
+    SUMBER DESAIN link preview. Teks & gambar diambil dari js/config.js,
+    jadi kalau nama/foto/banner berubah, buka file ini lalu render ulang ke og.jpg.
+
+    Cara render ulang: buka og.html di Chrome → DevTools (F12) → Ctrl+Shift+M (device toolbar)
+    → pilih "Responsive", set 1200 × 630, DPR 1 → menu ⋮ → "Capture screenshot"
+    → simpan sebagai assets/og/og.jpg (ukuran ideal < 300 KB agar tampil di WhatsApp).
+    Atau cukup upload gambar buatan sendiri lewat demo.html (Aset → Link preview).
+  -->
+  <style>
+    :root {
+      --bg: #0b0a14;
+      --orb1: #04549f; --orb2: #2e158a; --orb3: #144e99;
+      --text: #f5f5f7; --muted: #9a9aa6; --link: #5aa9ff;
+      --card: #241f3d;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; background: var(--bg); }
+    body { position: relative; font-family: Lato, Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color: var(--text); -webkit-font-smoothing: antialiased; }
+
+    /* background orbs — sama seperti halaman */
+    .orb { position: absolute; border-radius: 50%; filter: blur(110px); opacity: .95; }
+    .o1 { width: 620px; height: 620px; left: -160px; top: -200px; background: var(--orb1); }
+    .o2 { width: 640px; height: 640px; right: -180px; top: -60px; background: var(--orb2); }
+    .o3 { width: 560px; height: 560px; left: 280px; bottom: -330px; background: var(--orb3); }
+
+    /* panel kaca */
+    .panel {
+      position: absolute; inset: 36px; border-radius: 40px;
+      background: linear-gradient(135deg, rgba(255,255,255,.075), rgba(255,255,255,.03));
+      border: 1.5px solid rgba(255,255,255,.14);
+      box-shadow: 0 30px 80px rgba(0,0,0,.35);
+    }
+
+    .left { position: absolute; left: 96px; top: 0; bottom: 0; width: 600px; display: flex; flex-direction: column; justify-content: center; }
+    .handle {
+      align-self: flex-start; padding: 8px 18px; border-radius: 999px; margin-bottom: 26px;
+      background: rgba(90,169,255,.14); border: 1px solid rgba(90,169,255,.35);
+      color: var(--link); font-size: 24px; font-weight: 700; letter-spacing: .2px;
+    }
+    .name { margin: 0; font-size: 72px; line-height: 1.05; font-weight: 900; letter-spacing: -1.5px; white-space: nowrap; }
+    .name img { width: 50px; height: 50px; margin-left: 14px; vertical-align: -4px; }
+    .desc { margin: 22px 0 0; font-size: 36px; line-height: 1.3; color: #d7d7e0; font-weight: 400; }
+    .stats { display: flex; gap: 34px; margin-top: 38px; font-size: 28px; color: var(--muted); }
+    .stats b { color: var(--text); font-weight: 800; margin-right: 8px; }
+    .url { position: absolute; left: 96px; bottom: 76px; font-size: 24px; color: var(--link); font-weight: 700; display: flex; align-items: center; gap: 10px; }
+    .url::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--link); box-shadow: 0 0 14px var(--link); }
+
+    /* miniatur kartu profil di kanan */
+    .mini {
+      position: absolute; right: 88px; top: 50%; transform: translateY(-50%) rotate(2.5deg);
+      width: 380px; height: 440px; border-radius: 36px; overflow: hidden;
+      background: var(--card); border: 1.5px solid rgba(255,255,255,.16);
+      box-shadow: 0 40px 90px rgba(0,0,0,.5), 0 0 0 10px rgba(255,255,255,.04);
+    }
+    .banner { position: absolute; left: 12px; right: 12px; top: 12px; height: 190px; border-radius: 26px; background: linear-gradient(120deg,#00ffdd,#ff99aa,#ffd36b) center/cover; }
+    .avatar {
+      position: absolute; left: 34px; top: 130px; width: 150px; height: 150px; border-radius: 50%;
+      background: #fff center/cover; border: 7px solid var(--card); box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    .follow { position: absolute; right: 30px; top: 224px; padding: 10px 26px; border-radius: 999px; background: #ebebeb; color: #111; font-weight: 800; font-size: 22px; }
+    .l1 { position: absolute; left: 34px; top: 304px; height: 24px; width: 220px; border-radius: 12px; background: rgba(255,255,255,.9); }
+    .l2 { position: absolute; left: 34px; top: 344px; height: 16px; width: 150px; border-radius: 8px; background: rgba(255,255,255,.28); }
+    .l3 { position: absolute; left: 34px; top: 384px; height: 16px; width: 290px; border-radius: 8px; background: rgba(255,255,255,.18); }
+  </style>
+</head>
+<body>
+  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+  <div class="panel"></div>
+
+  <div class="left">
+    <div class="handle" id="handle"></div>
+    <h1 class="name"><span id="name"></span><img id="ver" alt="" /></h1>
+    <p class="desc" id="desc"></p>
+    <div class="stats" id="stats"></div>
+  </div>
+  <div class="url" id="url"></div>
+
+  <div class="mini" aria-hidden="true">
+    <div class="banner" id="banner"></div>
+    <div class="avatar" id="avatar"></div>
+    <div class="follow" id="follow"></div>
+    <div class="l1"></div><div class="l2"></div><div class="l3"></div>
+  </div>
+
+  <script src="../../js/config.js"></script>
+  <script>
+    (function () {
+      var c = window.PROFILE_CONFIG, p = c.profile, a = c.assets, f = c.follow || {}, th = (c.theme || {});
+      var pal = th.dark || {};
+      var root = document.documentElement.style;
+      if (pal.pageBg) root.setProperty("--bg", pal.pageBg);
+      if (pal.orb1) root.setProperty("--orb1", pal.orb1);
+      if (pal.orb2) root.setProperty("--orb2", pal.orb2);
+      if (pal.orb3) root.setProperty("--orb3", pal.orb3);
+      if (pal.cardBg) root.setProperty("--card", pal.cardBg);
+      if (pal.linkColor) root.setProperty("--link", pal.linkColor);
+      var rel = function (u) { return u ? "../../" + u : ""; };
+      var $ = function (id) { return document.getElementById(id); };
+      $("handle").textContent = p.username || "";
+      $("handle").hidden = !p.username;
+      $("name").textContent = p.name;
+      if (p.verified !== false && a.verified) $("ver").src = rel(a.verified); else $("ver").hidden = true;
+      $("desc").textContent = String(p.description || "").split(/\n+/)[0];
+      var s = $("stats");
+      if (f.statsShow !== false) {
+        [["following", "followingLabel"], ["followers", "followersLabel"]].forEach(function (k) {
+          if (!f[k[0]]) return;
+          var d = document.createElement("div");
+          d.innerHTML = "<b></b><span></span>";
+          d.firstChild.textContent = f[k[0]]; d.lastChild.textContent = f[k[1]] || "";
+          s.appendChild(d);
+        });
+      }
+      var host = "";
+      try { host = new URL((c.meta && c.meta.siteUrl) || ((c.links && c.links.items || [])[0] || {}).url).host; } catch (e) {}
+      $("url").textContent = host; $("url").hidden = !host;
+      if (a.banner) $("banner").style.backgroundImage = 'url("' + rel(a.banner) + '")';
+      if (a.profile) $("avatar").style.backgroundImage = 'url("' + rel(a.profile) + '")';
+      $("follow").textContent = f.text || "Follow";
+    })();
+  </script>
+</body>
+</html>

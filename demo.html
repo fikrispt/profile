@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Studio — Config Profile Card</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/png" href="assets/favicon/favicon.png" />
+  <link rel="stylesheet" href="css/card.css" />
+  <link rel="stylesheet" href="css/demo.css" />
+</head>
+<body class="demo">
+  <div class="app">
+    <!-- ===== Menu bar ===== -->
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="4"/><circle cx="12" cy="10" r="2.6"/><path d="M7.5 17c.8-2 2.4-3 4.5-3s3.7 1 4.5 3"/></svg></span>
+        <div class="brand-txt"><strong>Profile Card</strong><span>Studio</span></div>
+      </div>
+
+      <div class="tb-mid">
+        <div class="tb-group" role="group" aria-label="Riwayat">
+          <button class="ibtn" id="btnUndo" type="button" title="Undo (Ctrl+Z)" aria-label="Undo" disabled>
+            <svg viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg>
+          </button>
+          <button class="ibtn" id="btnRedo" type="button" title="Redo (Ctrl+Y)" aria-label="Redo" disabled>
+            <svg viewBox="0 0 24 24"><path d="m15 14 5-5-5-5"/><path d="M20 9H9.5a5.5 5.5 0 0 0 0 11H13"/></svg>
+          </button>
+        </div>
+        <label class="switch" title="Klik teks / gambar langsung di preview untuk mengubahnya">
+          <input type="checkbox" id="editToggle" />
+          <span class="track"><span class="thumb"></span></span>
+          <span class="switch-label">Edit via klik</span>
+        </label>
+      </div>
+
+      <div class="tb-right">
+        <a class="btn ghost" id="openIndex" href="index.html?draft=1" target="_blank" rel="noopener">Buka index ↗</a>
+        <div class="split">
+          <button class="btn primary" id="btnZip" type="button">Export ZIP</button>
+          <button class="btn primary caret" id="btnMenu" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Menu lainnya">
+            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="menu" id="menu" hidden role="menu">
+            <button type="button" id="btnJs" role="menuitem">Unduh config.js</button>
+            <button type="button" id="btnCopy" role="menuitem">Salin JSON</button>
+            <button type="button" id="btnHead" role="menuitem">Salin tag &lt;head&gt; (favicon &amp; preview)</button>
+            <button type="button" id="btnImport" role="menuitem">Import config…</button>
+            <hr />
+            <button type="button" id="btnReset" class="danger" role="menuitem">Reset ke config.js</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===== Menu tab (rail) ===== -->
+    <nav class="rail" id="rail" aria-label="Menu pengaturan"></nav>
+
+    <!-- ===== Panel pengaturan ===== -->
+    <aside class="panel" id="panel">
+      <div class="panel-head">
+        <div class="ph-row">
+          <h2 id="panelTitle">Profil</h2>
+          <button class="btn mini" id="btnToggleAll" type="button">Tutup semua</button>
+        </div>
+        <label class="search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input id="search" type="search" placeholder="Cari pengaturan…  (Ctrl+K)" autocomplete="off" spellcheck="false" />
+        </label>
+      </div>
+      <div class="panel-scroll" id="panelScroll">
+        <div id="form"></div>
+        <p class="no-result hidden" id="noResult">Tidak ada pengaturan yang cocok.</p>
+      </div>
+      <footer class="panel-foot"><p class="status" id="status">Perubahan otomatis tersimpan sebagai draft di browser ini.</p></footer>
+    </aside>
+
+    <!-- ===== Preview ===== -->
+    <main class="stage-wrap">
+      <div class="stage-bar">
+        <span class="hint" id="stageHint">Live preview</span>
+        <div class="seg" id="devSeg" role="group" aria-label="Lebar preview">
+          <button type="button" data-w="0" class="on">Auto</button>
+          <button type="button" data-w="375">375</button>
+          <button type="button" data-w="320">320</button>
+          <button type="button" data-w="280">280</button>
+        </div>
+      </div>
+      <div class="stage-shell" id="stageShell">
+        <div class="glass-bg" aria-hidden="true">
+          <span class="bg-img"></span><span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span>
+        </div>
+        <div class="stage" id="stage">
+          <div class="stage-inner" id="stageInner">
+            <article class="card" id="card" aria-label="Profile card"></article>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <input type="file" id="importFile" accept=".json,.js,application/json" hidden />
+  <div class="edit-tag" id="editTag" hidden></div>
+  <div class="pop" id="pop" hidden></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <input type="file" id="imgPicker" accept="image/*" hidden />
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/demo.js"></script>
+</body>
+</html>
