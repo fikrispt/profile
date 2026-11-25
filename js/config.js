@@ -1,5 +1,5 @@
 /**
- * CONFIG UTAMA — dibuat dari demo.html (2026-11-24)
+ * CONFIG UTAMA — dibuat dari demo.html (2026-11-25)
  * Timpa file js/config.js dengan file ini.
  */
 window.PROFILE_CONFIG = {
@@ -104,7 +104,7 @@ window.PROFILE_CONFIG = {
       {
         "type": "custom",
         "url": "https://www.tiktok.com/@fikrisaputra.id",
-        "icon": "assets/uploads/img-03.png"
+        "icon": "assets/uploads/img-01.png"
       },
       {
         "type": "custom",
