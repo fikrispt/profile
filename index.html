@@ -30,8 +30,6 @@
   <link rel="stylesheet" href="css/card.css" />
   <link rel="stylesheet" href="css/page.css" />
 
-  <!-- Shared header/footer styles -->
-  <link rel="stylesheet" href="https://fixsarts-auto.github.io/components/headerfooter/headerfooter.css" />
 </head>
 <body>
   <header data-site-header></header>
@@ -45,15 +43,33 @@
   </div>
 
   <!-- Isi kartu dirender dari js/config.js -->
-  <article class="card" id="card" data-autoboot aria-label="Profile card"></article>
-  <noscript>Aktifkan JavaScript untuk melihat kartu profil.</noscript>
+  <main class="page-main">
+    <article class="card" id="card" data-autoboot aria-label="Profile card"></article>
+    <noscript>Aktifkan JavaScript untuk melihat kartu profil.</noscript>
+  </main>
 
   <footer data-site-footer></footer>
 
-  <!-- Load scripts after header and footer elements exist in the DOM. -->
   <script src="js/config.js"></script>
   <script src="js/app.js"></script>
-  <script src="https://fixsarts-auto.github.io/components/headerfooter/headerfooter-config.js"></script>
-  <script src="https://fixsarts-auto.github.io/components/headerfooter/headerfooter.js"></script>
+
+  <!-- Header & footer situs: ON/OFF dari js/config.js -> site.header / site.footer
+       (atur lewat demo.html -> tab Konten -> "Header & Footer situs").
+       OFF = elemen dihapus dan komponen eksternal tidak dimuat. -->
+  <script>
+    (function () {
+      var site = (ProfileCard.getConfig().site) || {};
+      var BASE = "https://fixsarts-auto.github.io/components/headerfooter/";
+      var h = document.querySelector("[data-site-header]");
+      var f = document.querySelector("[data-site-footer]");
+      if (site.header === false && h) h.remove();
+      if (site.footer === false && f) f.remove();
+      if (site.header === false && site.footer === false) return;
+      // Ditulis sinkron (sama seperti tag statis) agar komponen jalan sebelum DOMContentLoaded
+      document.write('<link rel="stylesheet" href="' + BASE + 'headerfooter.css">');
+      document.write('<script src="' + BASE + 'headerfooter-config.js"><\/script>');
+      document.write('<script src="' + BASE + 'headerfooter.js"><\/script>');
+    })();
+  </script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 /**
- * CONFIG UTAMA — dibuat dari demo.html (2026-11-25)
+ * CONFIG UTAMA — dibuat dari demo.html (2026-11-26)
  * Timpa file js/config.js dengan file ini.
  */
 window.PROFILE_CONFIG = {
@@ -59,6 +59,10 @@ window.PROFILE_CONFIG = {
       "width": 3,
       "gap": 3
     }
+  },
+  "site": {
+    "header": false,
+    "footer": false
   },
   "layout": {
     "order": [

@@ -102,3 +102,15 @@ profile/
   - Section dan **tombol aksi** bisa diurutkan bersama (atau pakai pilihan *Posisi tombol aksi* di panel).
   - Di panel, tiap item punya dropdown *Pindah item ini* ke section lain.
   - Banner, avatar, dan tombol Follow tetap di posisi tetap (bagian struktur kartu).
+
+## Header & Footer situs (ON/OFF)
+
+Header/footer dimuat dari komponen eksternal (`fixsarts-auto.github.io/components/headerfooter`).
+Nyalakan/matikan dari `demo.html` → tab **Konten** → **Header & Footer situs**, atau langsung di `js/config.js`:
+
+```js
+"site": { "header": true, "footer": true }
+```
+
+- OFF = elemennya dihapus. Jika keduanya OFF, komponen eksternal tidak dimuat sama sekali.
+- Efeknya terlihat di `index.html` (tombol **Buka index**), bukan di preview demo.

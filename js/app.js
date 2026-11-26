@@ -902,7 +902,15 @@
     return cfg;
   }
 
+  /* config final (defaults + draft bila ?draft=1) tanpa merender — dipakai index.html untuk header/footer */
+  function getConfig() {
+    var cfg = defaults();
+    if (/[?&]draft=1\b/.test(location.search)) { var d = loadDraft(); if (d) cfg = merge(cfg, d); }
+    return cfg;
+  }
+
   window.ProfileCard = {
+    getConfig: getConfig,
     DRAFT_KEY: DRAFT_KEY,
     SOCIAL_TYPES: SOCIAL_TYPES, LINK_ICONS: LINK_ICONS, LABEL_ICONS: LABEL_ICONS, BLOCKS: BLOCKS, normalizeOrder: normalizeOrder, FONTS: FONTS,
     runtime: runtime,

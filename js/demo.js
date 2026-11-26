@@ -357,6 +357,12 @@
       { path: "theme.shadow", label: "Bayangan kartu", type: "check" }
     ]},
 
+    { tab: "konten", title: "Header & Footer situs", fields: [
+      { path: "site.header", label: "Tampilkan header (menu atas)", type: "check" },
+      { path: "site.footer", label: "Tampilkan footer (bawah)", type: "check",
+        hint: "Header/footer dimuat dari komponen eksternal, jadi hasilnya terlihat di index.html (tombol “Buka index”), bukan di preview ini. Jika keduanya OFF, komponen tidak dimuat sama sekali." }
+    ]},
+
     /* ===== ASET ===== */
     { tab: "aset", title: "Semua gambar", custom: "images" },
     { tab: "aset", title: "Info halaman (tab browser & SEO)", fields: [
